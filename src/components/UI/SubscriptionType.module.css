@@ -1,0 +1,15 @@
+.item-block {
+  background: #f3f4f6;
+  width: 100%;
+  padding: 15px 0;
+  color: #2e4983;
+  text-align: center;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  cursor: pointer;
+}
+
+.active-status {
+  background-color: #2e4983;
+  color: white;
+}

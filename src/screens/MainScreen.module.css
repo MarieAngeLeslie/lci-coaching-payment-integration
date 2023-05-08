@@ -1,0 +1,29 @@
+.payment-block {
+  margin-top: 100px;
+  padding: 0 20px;
+}
+
+.coaching-styles {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.coaching-styles > *:not(:last-child) {
+  margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.separator {
+  border: none;
+  height: 2px;
+  background-color: orange;
+  margin-top: 4px;
+}
+
+.payment-block .content {
+  background-color: #f3f4f6;
+  height: 300px;
+}
