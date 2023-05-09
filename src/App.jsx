@@ -1,6 +1,4 @@
-import { useState, Fragment } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { Fragment } from "react";
 import "./App.css";
 
 import MainScreen from "./screens/MainScreen";
@@ -8,7 +6,7 @@ import MainScreen from "./screens/MainScreen";
 function App() {
   return (
     <Fragment>
-      <MainScreen/>
+      <MainScreen />
     </Fragment>
   );
 }
