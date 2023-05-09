@@ -1,0 +1,21 @@
+.la-label {
+  font-size: 20px;
+}
+
+.btn-content {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .auth-msg {
+    width: 60%;
+    padding: 20px;
+    background: #f5ba6c;
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.646);
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 10px;
+  }
+  

@@ -1,8 +1,9 @@
 import React, { useState, Fragment } from "react";
+
 import styles from "./TestAndExam.module.css";
 import Button from "../Button";
 
-export default function TestAndExam() {
+export default function TestAndExam({ userMail }) {
   const [typeOfStudent, setTypeOfStudent] = useState("ownStudent");
   const handleOptionChange = (event) => {
     setTypeOfStudent(event.target.value);
@@ -13,8 +14,15 @@ export default function TestAndExam() {
   };
   return (
     <Fragment>
+      {!userMail && (
+        <p className={styles["auth-msg"]}>
+          Vueillez vous identifer avant toute soubscription
+        </p>
+      )}
       <form method="post" onSubmit={submitHandler}>
-        <label>
+        <br />
+        <br />
+        <label className={styles["la-label"]}>
           <input
             type="radio"
             name="setTypeOfStudent"
@@ -22,10 +30,11 @@ export default function TestAndExam() {
             checked={typeOfStudent === "ownStudent"}
             onChange={handleOptionChange}
           />
-          &nbsp;Etudiant(e) à Lci-coaching
+          &nbsp;&nbsp;Etudiant(e) à Lci-coaching
         </label>
         <br />
-        <label>
+        <br />
+        <label className={styles["la-label"]}>
           <input
             type="radio"
             name="setTypeOfStudent"
@@ -33,10 +42,11 @@ export default function TestAndExam() {
             checked={typeOfStudent === "externStudent"}
             onChange={handleOptionChange}
           />
-          &nbsp;Etudiant(e) externe
+          &nbsp;&nbsp;Etudiant(e) externe
         </label>
-        <p>afficher le prix</p>
-        <Button>Valider</Button>
+        <div className={styles["btn-content"]}>
+          <Button activity={userMail ? false : true}>Valider</Button>
+        </div>
       </form>
     </Fragment>
   );

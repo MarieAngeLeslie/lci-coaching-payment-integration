@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import styles from "./Identifier.module.css";
 
-export default function Identifier() {
+export default function Identifier({ sendMail }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (event) => {
@@ -19,7 +19,10 @@ export default function Identifier() {
       response
         .json()
         .then((res) => res.data)
-        .then((res) => console.log(res.email))
+        .then((res) => {
+          //   console.log(res.email);
+          sendMail(res.email);
+        })
     );
   };
   const shadow = {

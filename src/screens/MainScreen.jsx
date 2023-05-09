@@ -10,6 +10,11 @@ export default function MainScreen() {
   const [activeSubscription, setActiveSubscription] =
     useState("Coaching en Direct");
   const [currentView, setCurrentView] = useState(0);
+  const [useremail, setUseremail] = useState("");
+
+  const handleUserMail = (mail) => {
+    setUseremail(mail);
+  };
 
   const handleSubscriptionClick = (subject) => {
     setActiveSubscription(subject);
@@ -28,10 +33,14 @@ export default function MainScreen() {
     }
   };
 
-  const views = [<DirectCoaching />, <OffLineCoaching />, <TestAndExam />];
+  const views = [
+    <DirectCoaching userMail={useremail} />,
+    <OffLineCoaching userMail={useremail} />,
+    <TestAndExam userMail={useremail} />,
+  ];
   return (
     <Fragment>
-      <Identifier />
+      <Identifier sendMail={handleUserMail} />
       <div className={styles["payment-block"]}>
         <div className={styles["coaching-styles"]}>
           <SubscriptionType

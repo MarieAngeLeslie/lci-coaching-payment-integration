@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import Button from "../Button";
-
-export default function OffLineCoaching() {
+import styles from "./OffLineCoaching.module.css";
+export default function OffLineCoaching({ userMail }) {
   const [selectPaymentMode, setSelectPaymentMode] = useState("2times");
   const handleOptionChange = (event) => {
     setSelectPaymentMode(event.target.value);
@@ -12,8 +12,15 @@ export default function OffLineCoaching() {
   };
   return (
     <Fragment>
+      {!userMail && (
+        <p className={styles["auth-msg"]}>
+          Vueillez vous identifer avant toute soubscription
+        </p>
+      )}
       <form method="post" onSubmit={submitHandler}>
-        <label>
+        <br />
+        <br />
+        <label className={styles["la-label"]}>
           <input
             type="radio"
             name="selectPaymentModeChoice"
@@ -21,10 +28,11 @@ export default function OffLineCoaching() {
             checked={selectPaymentMode === "2times"}
             onChange={handleOptionChange}
           />
-          Payer en <b>deux</b> tranches
+          &nbsp;&nbsp;Payer en <b>deux</b> tranches
         </label>
         <br />
-        <label>
+        <br />
+        <label className={styles["la-label"]}>
           <input
             type="radio"
             name="selectPaymentModeChoice"
@@ -32,10 +40,11 @@ export default function OffLineCoaching() {
             checked={selectPaymentMode === "1time"}
             onChange={handleOptionChange}
           />
-          Payer en <b>une </b>fois
+          &nbsp;&nbsp; Payer en <b>une </b>fois
         </label>
-        <p>afficher le prix</p>
-        <Button>Valider</Button>
+        <div className={styles["btn-content"]}>
+          <Button activity={userMail ? false : true}>Valider</Button>
+        </div>
       </form>
     </Fragment>
   );
