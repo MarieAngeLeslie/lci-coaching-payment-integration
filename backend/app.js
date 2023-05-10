@@ -12,7 +12,9 @@ app
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     res.setHeader(
       "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
+      "Content-Type, Authorization",
+      "Content-Type",
+      "application/json"
     );
     next();
   })
@@ -28,6 +30,7 @@ sequelize.initDb();
 // all end points
 require("./src/routes/createPayment")(app);
 require("./src/routes/find_all_lci_students")(app);
+require("./src/routes/subscribe_student")(app);
 
 app.listen(port, () => {
   console.log(`server start well at port : ${port}`);

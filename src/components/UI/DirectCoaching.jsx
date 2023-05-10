@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useRef, useEffect, useState } from "react";
 import {
   openKkiapayWidget,
   addKkiapayListener,
@@ -7,28 +7,50 @@ import {
 
 import Button from "../Button";
 import styles from "./DirectCoaching.module.css";
+
+let currentMail;
+
 export default function DirectCoaching({ userMail }) {
   const selectRef = useRef(null);
+  const [unitPrice, setUnitPrice] = useState(20000);
+  currentMail = userMail;
+  function successHandler(response) {
+    fetch("http://localhost:3000/api/coachingpayment/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: currentMail,
+        montant_paye: unitPrice * selectRef.current.value,
+        type_abonnement: "live_coaching",
+        duree: selectRef.current.value,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+      })
+      .catch((error) => {
+        // console.error(error);
+      });
+  }
+
+  useEffect(() => {
+    addKkiapayListener("success", successHandler);
+    return () => {
+      removeKkiapayListener("success", successHandler);
+    };
+  }, []);
+
   const submitHandler = (event) => {
     event.preventDefault();
     console.log(selectRef.current.value);
     openKkiapayWidget({
-      amount: 20000 * selectRef.current.value,
+      amount: unitPrice * selectRef.current.value,
       api_key: "d32fcd10d95b11edafd30336c898d519",
       sandbox: true,
       email: userMail,
       phone: "97000000",
     });
-    function successHandler(response) {
-      console.log(response);
-    }
-
-    useEffect(() => {
-      addKkiapayListener("success", successHandler);
-      return () => {
-        removeKkiapayListener("success", successHandler);
-      };
-    }, []);
   };
   return (
     <Fragment>

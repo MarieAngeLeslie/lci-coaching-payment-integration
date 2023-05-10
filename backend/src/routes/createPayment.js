@@ -9,7 +9,7 @@ module.exports = (app) => {
       })
       .catch((error) => {
         const msg = "l'élément n'a pas été ajouté";
-        res.status(500).json({});
+        res.status(500).json({ msg, data: error });
       });
   });
 };

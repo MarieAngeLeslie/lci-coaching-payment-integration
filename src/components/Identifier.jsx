@@ -15,15 +15,19 @@ export default function Identifier({ sendMail }) {
     }
     fetch(
       `http://localhost:3000/api/find-all-lci-students?email=${inputValue}`
-    ).then((response) =>
-      response
-        .json()
-        .then((res) => res.data)
-        .then((res) => {
-          //   console.log(res.email);
-          sendMail(res.email);
-        })
-    );
+    ).then((response) => {
+      if (response.ok) {
+        response
+          .json()
+          .then((res) => res.data)
+          .then((res) => {
+            sendMail(res.email);
+            setInputValue("");
+          });
+      } else {
+        sendMail(null);
+      }
+    });
   };
   const shadow = {
     background: "orange",

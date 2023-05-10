@@ -17,10 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    date_abonnement: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
     duree: {
       type: DataTypes.INTEGER,
       allowNull: false,
