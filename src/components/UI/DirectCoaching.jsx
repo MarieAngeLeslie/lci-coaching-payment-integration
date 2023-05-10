@@ -9,10 +9,11 @@ import Button from "../Button";
 import styles from "./DirectCoaching.module.css";
 
 let currentMail;
-
+let oldStd;
 export default function DirectCoaching({ userMail }) {
   const selectRef = useRef(null);
   const [unitPrice, setUnitPrice] = useState(20000);
+  const [oldStudent, setoldStudent] = useState("");
   currentMail = userMail;
   function successHandler(response) {
     fetch("http://localhost:3000/api/coachingpayment/", {
@@ -20,7 +21,9 @@ export default function DirectCoaching({ userMail }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: currentMail,
-        montant_paye: unitPrice * selectRef.current.value,
+        montant_paye: oldStudent
+          ? unitPrice * selectRef.current.value
+          : unitPrice * selectRef.current.value + 2500,
         type_abonnement: "live_coaching",
         duree: selectRef.current.value,
       }),
@@ -43,14 +46,27 @@ export default function DirectCoaching({ userMail }) {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(selectRef.current.value);
-    openKkiapayWidget({
-      amount: unitPrice * selectRef.current.value,
-      api_key: "d32fcd10d95b11edafd30336c898d519",
-      sandbox: true,
-      email: userMail,
-      phone: "97000000",
-    });
+    fetch(`http://localhost:3000/api/subscribe_student?email=${userMail}`).then(
+      (response) => {
+        if (response.ok) {
+          setoldStudent(true);
+        } else {
+          setoldStudent(false);
+        }
+        console.log("briziiii");
+        console.log(oldStudent);
+        console.log("briziiii");
+        openKkiapayWidget({
+          amount: oldStudent
+            ? unitPrice * selectRef.current.value
+            : unitPrice * selectRef.current.value + 2500,
+          api_key: "d32fcd10d95b11edafd30336c898d519",
+          sandbox: true,
+          email: userMail,
+          phone: "97000000",
+        });
+      }
+    );
   };
   return (
     <Fragment>

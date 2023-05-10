@@ -12,7 +12,7 @@ let currentMail;
 export default function OffLineCoaching({ userMail }) {
   const [selectPaymentMode, setSelectPaymentMode] = useState("2times");
   const [unitPrice, setUnitPrice] = useState(2500);
-
+  const [oldStudent, setoldStudent] = useState("");
   currentMail = userMail;
   function successHandler(response) {
     fetch("http://localhost:3000/api/coachingpayment/", {
@@ -50,10 +50,19 @@ export default function OffLineCoaching({ userMail }) {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(selectPaymentMode);
+    // console.log(selectPaymentMode);
+    fetch(`http://localhost:3000/api/subscribe_student?email=${userMail}`).then(
+      (response) => {
+        if (response.ok) {
+          setoldStudent(true);
+        } else {
+          setoldStudent(false);
+        }
+      }
+    );
     if (selectPaymentMode === "2times") {
       openKkiapayWidget({
-        amount: unitPrice,
+        amount: oldStudent ? unitPrice : unitPrice + 2500,
         api_key: "d32fcd10d95b11edafd30336c898d519",
         sandbox: true,
         email: userMail,
@@ -61,7 +70,7 @@ export default function OffLineCoaching({ userMail }) {
       });
     } else {
       openKkiapayWidget({
-        amount: unitPrice * 2,
+        amount: oldStudent ? unitPrice * 2 : unitPrice * 2 + 2500,
         api_key: "d32fcd10d95b11edafd30336c898d519",
         sandbox: true,
         email: userMail,
