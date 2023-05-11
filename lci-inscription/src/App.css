@@ -1,0 +1,39 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  display: inline-block;
+  outline: none;
+  padding: 20px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(78, 73, 73, 0.496);
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #2e4983;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+form {
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.imgBlock {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
