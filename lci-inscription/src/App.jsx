@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { SHA256 } from "crypto-js";
 import "./App.css";
 import lciImg from "./assets/lci.png";
 
@@ -53,13 +54,21 @@ export default function App() {
         mobileno: mobilenoValue,
         dob: dobValue,
         username: username,
-        password: pwd,
+        password: SHA256(pwd).toString(),
       }),
     })
       .then((response) => response.json())
       .catch((error) => {
         // console.error(error);
       });
+    setEmailValue("");
+    setFirstnameValue("");
+    setLastnameValue("");
+    setEmailValue("");
+    setMobilenoValue("");
+    setPwd("");
+    setUsername("");
+    setDobValue("");
   };
 
   return (

@@ -1,5 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define("Student", {
+  return sequelize.define(
+    "Student",
+    {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -25,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         allowNull: true,
       },
-    });
-  };
-  
+    },
+    { timestamps: false }
+  );
+};

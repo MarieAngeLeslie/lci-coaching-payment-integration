@@ -21,7 +21,7 @@ export default function DirectCoaching({ userMail }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: currentMail,
-        montant_paye: oldStudent
+        montant_paye: oldStd
           ? unitPrice * selectRef.current.value
           : unitPrice * selectRef.current.value + 2500,
         type_abonnement: "live_coaching",
@@ -49,15 +49,17 @@ export default function DirectCoaching({ userMail }) {
     fetch(`http://localhost:3000/api/subscribe_student?email=${userMail}`).then(
       (response) => {
         if (response.ok) {
+          oldStd = true;
           setoldStudent(true);
         } else {
           setoldStudent(false);
+          oldStd = false;
         }
         console.log("briziiii");
         console.log(oldStudent);
         console.log("briziiii");
         openKkiapayWidget({
-          amount: oldStudent
+          amount: oldStd
             ? unitPrice * selectRef.current.value
             : unitPrice * selectRef.current.value + 2500,
           api_key: "d32fcd10d95b11edafd30336c898d519",

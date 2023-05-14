@@ -8,7 +8,7 @@ import {
 } from "kkiapay";
 
 let currentMail;
-
+let oldstd = false;
 export default function OffLineCoaching({ userMail }) {
   const [selectPaymentMode, setSelectPaymentMode] = useState("2times");
   const [unitPrice, setUnitPrice] = useState(2500);
@@ -21,9 +21,15 @@ export default function OffLineCoaching({ userMail }) {
       body: JSON.stringify({
         email: currentMail,
         montant_paye:
-          selectPaymentMode === "2times"
+          selectPaymentMode === "2times" && oldstd === true
             ? unitPrice
-            : unitPrice * selectRef.current.value,
+            : selectPaymentMode === "2times" && oldstd === false
+            ? unitPrice * 2
+            : selectPaymentMode === "1time" && oldstd === true
+            ? unitPrice * 2
+            : selectPaymentMode === "1time" && oldstd === false
+            ? unitPrice * 2 + 2500
+            : unitPrice * 2,
         type_abonnement: "diff_coaching",
         duree: 1,
       }),
@@ -37,7 +43,7 @@ export default function OffLineCoaching({ userMail }) {
       });
   }
 
-  const handleOptionChange = (event) => {
+  const handleOptionChange = async (event) => {
     setSelectPaymentMode(event.target.value);
   };
 
@@ -46,23 +52,28 @@ export default function OffLineCoaching({ userMail }) {
     return () => {
       removeKkiapayListener("success", successHandler);
     };
-  }, []);
+  }, [oldstd, selectPaymentMode]);
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    // console.log(selectPaymentMode);
-    fetch(`http://localhost:3000/api/subscribe_student?email=${userMail}`).then(
-      (response) => {
-        if (response.ok) {
-          setoldStudent(true);
-        } else {
-          setoldStudent(false);
-        }
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/subscribe_student?email=${userMail}`
+      );
+
+      if (response.ok) {
+        oldstd = true;
+      } else {
+        console.log("il n'est pas trouvé");
+        oldstd = false;
       }
-    );
+    } catch (error) {
+      console.error(error);
+    }
+
     if (selectPaymentMode === "2times") {
       openKkiapayWidget({
-        amount: oldStudent ? unitPrice : unitPrice + 2500,
+        amount: oldstd ? unitPrice : unitPrice + 2500,
         api_key: "d32fcd10d95b11edafd30336c898d519",
         sandbox: true,
         email: userMail,
@@ -70,7 +81,7 @@ export default function OffLineCoaching({ userMail }) {
       });
     } else {
       openKkiapayWidget({
-        amount: oldStudent ? unitPrice * 2 : unitPrice * 2 + 2500,
+        amount: oldstd ? unitPrice * 2 : unitPrice * 2 + 2500,
         api_key: "d32fcd10d95b11edafd30336c898d519",
         sandbox: true,
         email: userMail,
@@ -93,7 +104,6 @@ export default function OffLineCoaching({ userMail }) {
             type="radio"
             name="selectPaymentModeChoice"
             value="2times"
-            checked={selectPaymentMode === "2times"}
             onChange={handleOptionChange}
           />
           &nbsp;&nbsp;Payer en <b>deux</b> tranches
@@ -105,7 +115,6 @@ export default function OffLineCoaching({ userMail }) {
             type="radio"
             name="selectPaymentModeChoice"
             value="1time"
-            checked={selectPaymentMode === "1time"}
             onChange={handleOptionChange}
           />
           &nbsp;&nbsp; Payer en <b>une </b>fois

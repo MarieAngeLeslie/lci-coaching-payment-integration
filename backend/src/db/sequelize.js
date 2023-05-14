@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const CoachingPaymentModel = require("../models/coaching_payment");
 const StudentModel = require("../models/students");
+const UserModel = require("../models/users");
 
 const sequelize = new Sequelize("c1956362c_ssdb", "root", "root", {
   host: "127.0.0.1",
@@ -17,6 +18,7 @@ sequelize
 
 const CoachingPayment = CoachingPaymentModel(sequelize, DataTypes);
 const Student = StudentModel(sequelize, DataTypes);
+const User = UserModel(sequelize, DataTypes);
 
 const initDb = () => {
   return sequelize
@@ -28,4 +30,5 @@ module.exports = {
   initDb,
   CoachingPayment,
   Student,
+  User
 };
