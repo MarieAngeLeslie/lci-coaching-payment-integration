@@ -41,6 +41,12 @@ export default function MainScreen() {
   return (
     <Fragment>
       <Identifier sendMail={handleUserMail} />
+      <p className={styles["member-text-style"]}>
+        Pas encore membre ? &nbsp;
+        <span>
+          <a href="">Inscrivez-vous</a>
+        </span>
+      </p>
       <div className={styles["payment-block"]}>
         <div className={styles["coaching-styles"]}>
           <SubscriptionType

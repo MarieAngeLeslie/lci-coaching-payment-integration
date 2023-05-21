@@ -37,3 +37,42 @@ form {
   justify-content: center;
   margin: 20px 0;
 }
+
+.invalidField {
+  border: 1px solid red;
+}
+
+.lci-logo {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.member-text-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+  font-size: 17px;
+}
+.member-text-style span a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 6px 10px;
+  font-size: 16px;
+  background-color: #1a3676e2;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+.notification-msg {
+  padding: 16px 10px;
+  background-color: rgba(255, 0, 0, 0.598);
+  width: 30%;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 10px;
+  color: white;
+  margin-bottom: 20px;
+}

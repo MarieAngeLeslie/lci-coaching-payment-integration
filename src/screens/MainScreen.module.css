@@ -1,5 +1,5 @@
 .payment-block {
-  margin-top: 100px;
+  margin-top: 60px;
   padding: 0 20px;
 }
 
@@ -33,4 +33,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.member-text-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 14px;
+  opacity: .7;
+}
+.member-text-style span a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 6px 10px;
+  background-color: #131b2d94;
+  color: white;
+  border: none;
+  border-radius: 10px;
 }

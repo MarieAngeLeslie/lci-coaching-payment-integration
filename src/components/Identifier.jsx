@@ -40,15 +40,13 @@ export default function Identifier({ sendMail }) {
         onSubmit={handleSubmit}
         className={styles["form-block"]}
       >
-        <label>
-          {/* Identifier vous :&nbsp;&nbsp; */}
-          <input
-            name="firstName"
-            placeholder="Entrez votre mail"
-            value={inputValue}
-            onChange={handleInputChange}
-          />
-        </label>
+        {/* Identifier vous :&nbsp;&nbsp; */}
+        <input
+          name="firstName"
+          placeholder="Entrez votre mail"
+          value={inputValue}
+          onChange={handleInputChange}
+        />
         <button type="submit" className={styles["identifierBtn"]}>
           s'identifier
         </button>

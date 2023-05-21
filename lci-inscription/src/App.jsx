@@ -12,8 +12,21 @@ export default function App() {
   const [username, setUsername] = useState("");
   const [pwd, setPwd] = useState("");
 
+  const [validMail, setValidMail] = useState(true);
+  const [allFieldFill, setAllFieldFill] = useState(true);
+
   const handleEmailValue = (event) => {
-    setEmailValue(event.target.value);
+    const currentValue = event.target.value.trim();
+    setEmailValue(currentValue);
+    if (
+      currentValue === "" ||
+      !currentValue.includes("@") ||
+      !currentValue.includes(".")
+    ) {
+      setValidMail(false);
+    } else {
+      setValidMail(true);
+    }
   };
   const handleFirstnameValue = (event) => {
     setFirstnameValue(event.target.value);
@@ -41,9 +54,21 @@ export default function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (inputValue === "") {
-    //   return;
-    // }
+    console.log("yes........");
+    if (
+      !validMail ||
+      firstnameValue === "" ||
+      lastnameValue === "" ||
+      lastnameValue === "" ||
+      mobilenoValue === "" ||
+      dobValue === "" ||
+      username === "" ||
+      pwd === ""
+    ) {
+      setAllFieldFill(false);
+      return;
+    }
+    setAllFieldFill(true);
     fetch("http://localhost:3000/api/adduser", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -73,13 +98,17 @@ export default function App() {
 
   return (
     <Fragment>
-      <div className="imgBlock">
+      <div className="lci-logo">
         <img src={lciImg} alt="lci-coaching-img" />
       </div>
+      {!allFieldFill && (
+        <p className="notification-msg">Veuillez remplir tous les champs</p>
+      )}
       <form method="post" onSubmit={handleSubmit}>
         {/* Identifier vous :&nbsp;&nbsp; */}
         <input
-          placeholder="Entrez votre mail"
+          className={`${!validMail ? "invalidField" : ""}`}
+          placeholder="Entrez votre email"
           value={emailValue}
           onChange={handleEmailValue}
           type="email"
@@ -87,7 +116,7 @@ export default function App() {
         <br />
         <br />
         <input
-          placeholder="Entrez votre Nom"
+          placeholder="Entrez votre nom"
           value={lastnameValue}
           onChange={handleLastnameValue}
           type="text"
@@ -95,7 +124,7 @@ export default function App() {
         <br />
         <br />
         <input
-          placeholder="Entrez votre Prénom"
+          placeholder="Entrez votre prénom"
           value={firstnameValue}
           onChange={handleFirstnameValue}
           type="text"
@@ -103,7 +132,7 @@ export default function App() {
         <br />
         <br />
         <input
-          placeholder="Entrez votre numéro"
+          placeholder="Entrez votre numéro plus indicatif ex: +229 63 00 00 00"
           value={mobilenoValue}
           onChange={handleMobilenoValue}
           type="text"
@@ -111,7 +140,7 @@ export default function App() {
         <br />
         <br />
         <input
-          placeholder="Entrez votre date de naissance"
+          placeholder="votre date de naissance"
           value={dobValue}
           onChange={handleDobValue}
           type="date"
@@ -137,6 +166,13 @@ export default function App() {
         <br />
         <button type="submit">S'enregistrer</button>
       </form>
+
+      <p className="member-text-style">
+        Déjà membre ! je souhaite prendre &nbsp;
+        <span>
+          <a href="">UN ABONNEMENT</a>
+        </span>
+      </p>
     </Fragment>
   );
 }

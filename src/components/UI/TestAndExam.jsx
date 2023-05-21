@@ -74,11 +74,13 @@ export default function TestAndExam({ userMail }) {
     <Fragment>
       {!userMail && (
         <p className={styles["auth-msg"]}>
-          Vueillez vous identifer avant toute soubscription
+          Vueillez vous identifer avant toute souscription
         </p>
       )}
+      <p className={styles["as-an-indication"]}>
+        Passez vos examens TOEFL / IELTS / TOIEC, en toute quiétude
+      </p>
       <form method="post" onSubmit={submitHandler}>
-        <br />
         <br />
         {/* <label className={styles["la-label"]}>
           <input
@@ -105,7 +107,9 @@ export default function TestAndExam({ userMail }) {
           &nbsp;&nbsp;Etudiant(e) externe
         </label> */}
         <div className={styles["btn-content"]}>
-          <Button activity={userMail ? false : true}>Passer un Examen</Button>
+          <Button activity={userMail ? false : true}>
+            Préparationn à l'examen
+          </Button>
         </div>
       </form>
     </Fragment>

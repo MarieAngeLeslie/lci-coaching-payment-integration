@@ -24,11 +24,11 @@ export default function OffLineCoaching({ userMail }) {
           selectPaymentMode === "2times" && oldstd === true
             ? unitPrice
             : selectPaymentMode === "2times" && oldstd === false
-            ? unitPrice * 2
+            ? unitPrice + 1100
             : selectPaymentMode === "1time" && oldstd === true
             ? unitPrice * 2
             : selectPaymentMode === "1time" && oldstd === false
-            ? unitPrice * 2 + 2500
+            ? unitPrice * 2 + 1100
             : unitPrice * 2,
         type_abonnement: "diff_coaching",
         duree: 1,
@@ -73,7 +73,7 @@ export default function OffLineCoaching({ userMail }) {
 
     if (selectPaymentMode === "2times") {
       openKkiapayWidget({
-        amount: oldstd ? unitPrice : unitPrice + 2500,
+        amount: oldstd ? unitPrice : unitPrice + 1100,
         api_key: "d32fcd10d95b11edafd30336c898d519",
         sandbox: true,
         email: userMail,
@@ -81,7 +81,7 @@ export default function OffLineCoaching({ userMail }) {
       });
     } else {
       openKkiapayWidget({
-        amount: oldstd ? unitPrice * 2 : unitPrice * 2 + 2500,
+        amount: oldstd ? unitPrice * 2 : unitPrice * 2 + 1100,
         api_key: "d32fcd10d95b11edafd30336c898d519",
         sandbox: true,
         email: userMail,
