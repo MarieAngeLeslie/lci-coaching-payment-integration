@@ -16,7 +16,7 @@ export default function TestAndExam({ userMail }) {
 
   currentMail = userMail;
   function successHandler(response) {
-    fetch("http://localhost:3000/api/coachingpayment/", {
+    fetch("https://api.lci-coaching.com/api/coachingpayment/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -51,20 +51,19 @@ export default function TestAndExam({ userMail }) {
     // console.log(typeOfStudent);
     try {
       const response = await fetch(
-        `http://localhost:3000/api/subscribe_student?email=${userMail}`
+        `https://api.lci-coaching.com/api/subscribe_student?email=${userMail}`
       );
       if (response.ok) {
         oldstd = true;
       } else {
-        console.log("je suis ici bien false");
         oldstd = false;
       }
       openKkiapayWidget({
         amount: oldstd ? 30000 : 50000,
-        api_key: "d32fcd10d95b11edafd30336c898d519",
-        sandbox: true,
+        api_key: "47671cfebd26868d7f0924e30a46004dae845269",
+        live: true,
         email: userMail,
-        phone: "97000000",
+        phone: "",
       });
     } catch (error) {
       console.log(error);

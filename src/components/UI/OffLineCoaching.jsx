@@ -15,7 +15,7 @@ export default function OffLineCoaching({ userMail }) {
   const [oldStudent, setoldStudent] = useState("");
   currentMail = userMail;
   function successHandler(response) {
-    fetch("http://localhost:3000/api/coachingpayment/", {
+    fetch("https://api.lci-coaching.com/api/coachingpayment/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -24,11 +24,11 @@ export default function OffLineCoaching({ userMail }) {
           selectPaymentMode === "2times" && oldstd === true
             ? unitPrice
             : selectPaymentMode === "2times" && oldstd === false
-            ? unitPrice + 1100
+            ? unitPrice + 1500
             : selectPaymentMode === "1time" && oldstd === true
             ? unitPrice * 2
             : selectPaymentMode === "1time" && oldstd === false
-            ? unitPrice * 2 + 1100
+            ? unitPrice * 2 + 1500
             : unitPrice * 2,
         type_abonnement: "diff_coaching",
         duree: 1,
@@ -58,7 +58,7 @@ export default function OffLineCoaching({ userMail }) {
     event.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3000/api/subscribe_student?email=${userMail}`
+        `https://api.lci-coaching.com/api/subscribe_student?email=${userMail}`
       );
 
       if (response.ok) {
@@ -73,19 +73,19 @@ export default function OffLineCoaching({ userMail }) {
 
     if (selectPaymentMode === "2times") {
       openKkiapayWidget({
-        amount: oldstd ? unitPrice : unitPrice + 1100,
-        api_key: "d32fcd10d95b11edafd30336c898d519",
-        sandbox: true,
+        amount: oldstd ? unitPrice : unitPrice + 1500,
+        api_key: "47671cfebd26868d7f0924e30a46004dae845269",
+        live: true,
         email: userMail,
-        phone: "97000000",
+        phone: "",
       });
     } else {
       openKkiapayWidget({
-        amount: oldstd ? unitPrice * 2 : unitPrice * 2 + 1100,
-        api_key: "d32fcd10d95b11edafd30336c898d519",
-        sandbox: true,
+        amount: oldstd ? unitPrice * 2 : unitPrice * 2 + 1500,
+        api_key: "47671cfebd26868d7f0924e30a46004dae845269",
+        live: true,
         email: userMail,
-        phone: "97000000",
+        phone: "",
       });
     }
   };

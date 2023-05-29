@@ -54,7 +54,6 @@ export default function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("yes........");
     if (
       !validMail ||
       firstnameValue === "" ||
@@ -69,7 +68,7 @@ export default function App() {
       return;
     }
     setAllFieldFill(true);
-    fetch("http://localhost:3000/api/adduser", {
+    fetch("https://api.lci-coaching.com/api/adduser", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -82,7 +81,7 @@ export default function App() {
         password: SHA256(pwd).toString(),
       }),
     })
-      .then((response) => response.json())
+      .then()
       .catch((error) => {
         // console.error(error);
       });
@@ -170,7 +169,7 @@ export default function App() {
       <p className="member-text-style">
         Déjà membre ! je souhaite prendre &nbsp;
         <span>
-          <a href="">UN ABONNEMENT</a>
+          <a href="https://payment.lci-coaching.com/">UN ABONNEMENT</a>
         </span>
       </p>
     </Fragment>

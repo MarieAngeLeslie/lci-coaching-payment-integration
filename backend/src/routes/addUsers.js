@@ -4,8 +4,10 @@ module.exports = (app) => {
   app.post("/api/adduser", (req, res) => {
     const { email, firstname, lastname, mobileno, dob, username, password } =
       req.body;
+    console.log(req.body);
     Student.create({ email, firstname, lastname, mobileno, dob })
       .then((data1) => {
+        console.log(data1);
         User.create({
           user_id: data1.id,
           username: username,

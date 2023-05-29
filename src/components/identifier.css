@@ -1,0 +1,18 @@
+.user-notif {
+  text-align: center;
+  width: 40%;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 0 auto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.user-notif.user-found {
+  background-color: rgba(13, 231, 13, 0.3);
+}
+
+.user-notif.user-not-found {
+  background-color: rgba(255, 166, 0, 0.58);
+  line-height: 1.5;
+  letter-spacing: 1px;
+}

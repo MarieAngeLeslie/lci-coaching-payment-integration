@@ -16,7 +16,7 @@ export default function DirectCoaching({ userMail }) {
   const [oldStudent, setoldStudent] = useState("");
   currentMail = userMail;
   function successHandler(response) {
-    fetch("http://localhost:3000/api/coachingpayment/", {
+    fetch("https://api.lci-coaching.com/api/coachingpayment/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -46,35 +46,32 @@ export default function DirectCoaching({ userMail }) {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    fetch(`http://localhost:3000/api/subscribe_student?email=${userMail}`).then(
-      (response) => {
-        if (response.ok) {
-          oldStd = true;
-          setoldStudent(true);
-        } else {
-          setoldStudent(false);
-          oldStd = false;
-        }
-        console.log("briziiii");
-        console.log(oldStudent);
-        console.log("briziiii");
-        openKkiapayWidget({
-          amount: oldStd
-            ? unitPrice * selectRef.current.value
-            : unitPrice * selectRef.current.value + 2500,
-          api_key: "d32fcd10d95b11edafd30336c898d519",
-          sandbox: true,
-          email: userMail,
-          phone: "97000000",
-        });
+    fetch(
+      `https://api.lci-coaching.com/api/subscribe_student?email=${userMail}`
+    ).then((response) => {
+      if (response.ok) {
+        oldStd = true;
+        setoldStudent(true);
+      } else {
+        setoldStudent(false);
+        oldStd = false;
       }
-    );
+      openKkiapayWidget({
+        amount: oldStd
+          ? unitPrice * selectRef.current.value
+          : unitPrice * selectRef.current.value + 2500,
+        api_key: "47671cfebd26868d7f0924e30a46004dae845269",
+        live: true,
+        email: userMail,
+        phone: "",
+      });
+    });
   };
   return (
     <Fragment>
       {!userMail && (
         <p className={styles["auth-msg"]}>
-          Vueillez vous identifer avant toute soubscription
+          Vueillez vous identifer avant toute souscription
         </p>
       )}
       <form method="post" onSubmit={submitHandler}>

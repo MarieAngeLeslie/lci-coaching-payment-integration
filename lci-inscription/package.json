@@ -1,5 +1,6 @@
 {
   "name": "lci-inscription",
+  "homepage": "https://sign-up.lci-coaching.com/",
   "private": true,
   "version": "0.0.0",
   "type": "module",

@@ -44,7 +44,9 @@ export default function MainScreen() {
       <p className={styles["member-text-style"]}>
         Pas encore membre ? &nbsp;
         <span>
-          <a href="">Inscrivez-vous</a>
+          <a href="https://lci-coaching.com/online_admission/">
+            Inscrivez-vous
+          </a>
         </span>
       </p>
       <div className={styles["payment-block"]}>
