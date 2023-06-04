@@ -11,9 +11,10 @@ export default function App() {
   const [dobValue, setDobValue] = useState("");
   const [username, setUsername] = useState("");
   const [pwd, setPwd] = useState("");
-
   const [validMail, setValidMail] = useState(true);
   const [allFieldFill, setAllFieldFill] = useState(true);
+  const [newUserMsg, setNewUserMsg] = useState(false);
+  const [mailExist, setMailExist] = useState(false);
 
   const handleEmailValue = (event) => {
     const currentValue = event.target.value.trim();
@@ -68,6 +69,17 @@ export default function App() {
       return;
     }
     setAllFieldFill(true);
+    fetch(
+      `https://api.lci-coaching.com/api/find-all-lci-students?email=${emailValue}`
+    ).then((response) => {
+      if (response.ok) {
+        if (newUserMsg) {
+          setNewUserMsg(false);
+        }
+        setMailExist(true);
+        return;
+      }
+    });
     fetch("https://api.lci-coaching.com/api/adduser", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -81,7 +93,14 @@ export default function App() {
         password: SHA256(pwd).toString(),
       }),
     })
-      .then()
+      .then((res) => {
+        if (res.ok) {
+          if (mailExist) {
+            setMailExist(false);
+          }
+          setNewUserMsg(true);
+        }
+      })
       .catch((error) => {
         // console.error(error);
       });
@@ -102,6 +121,16 @@ export default function App() {
       </div>
       {!allFieldFill && (
         <p className="notification-msg">Veuillez remplir tous les champs</p>
+      )}
+      {newUserMsg && (
+        <p className="user-notif user-found">
+          Félicitations ! Nous vous souhaitons la bienvenue chez LCI-Coaching.
+        </p>
+      )}
+      {mailExist && (
+        <p className="user-notif user-not-found">
+          Cette adresse email existe déjà !
+        </p>
       )}
       <form method="post" onSubmit={handleSubmit}>
         {/* Identifier vous :&nbsp;&nbsp; */}

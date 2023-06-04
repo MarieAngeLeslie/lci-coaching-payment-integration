@@ -44,7 +44,7 @@ export default function Identifier({ sendMail }) {
     <Fragment>
       {userExist && (
         <p className="user-notif user-found">
-          Heureux de vous retrouvez <span>{userFirstName}</span>
+          Heureux de vous retrouver <span>{userFirstName}</span>
         </p>
       )}
       {userExist === false && (
